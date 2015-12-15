@@ -1,7 +1,7 @@
 
 LDADD = ../src/.libs/libpmalloc.la -lrt
 
-CFLAGS += -I../src
+AM_CFLAGS = -I../src
 
 noinst_PROGRAMS = struct_objs_write struct_objs_read
 
