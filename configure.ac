@@ -6,6 +6,7 @@ AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 #fi
 AC_CONFIG_MACRO_DIR([m4])
 m4_pattern_allow([AM_PROG_AR])
+m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
 AC_GNU_SOURCE
 AC_DEFINE([_FILE_OFFSET_BITS], [64], [enable 64bits offset])
 AC_PROG_CC_C99
