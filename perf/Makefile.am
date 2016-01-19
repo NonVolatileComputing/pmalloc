@@ -1,5 +1,5 @@
 
-LDADD = ../src/.libs/libpmalloc.la -lrt
+LDADD = ../src/.libs/libpmalloc.la
 
 AM_CFLAGS = -I../src
 
