@@ -12,10 +12,19 @@ AC_DEFINE([_FILE_OFFSET_BITS], [64], [enable 64bits offset])
 AC_PROG_CC_C99
 AC_PROG_LIBTOOL
 AC_FUNC_MMAP
+case "$host_os" in
+  darwin*)
+  ;;
+  *)
+  AC_CHECK_FUNCS([clock_gettime], [CLOCK_LIB=],
+    [AC_CHECK_LIB([rt], [clock_gettime], [CLOCK_LIB=-lrt],
+    [AC_MSG_ERROR([Couldn't find clock_gettime])])])
+  AC_SUBST([CLOCK_LIB])
+  ;;
+esac
 AM_PROG_CC_C_O
 AC_CONFIG_HEADERS([config.h])
 PKG_CHECK_MODULES([CHECK], [check >= 0.9.4])
 AC_CONFIG_FILES([Makefile src/Makefile tests/Makefile perf/Makefile])
-#AC_CHECK_LIB([pmalloc],[])
 AC_OUTPUT
 
