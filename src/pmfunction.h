@@ -53,4 +53,8 @@ void *allocate_blockfrag(struct mdesc *mdp, size_t size);
 
 void *allocate_blocks(struct mdesc *mdp, size_t blocks);
 
+void free_blocks(struct mdesc *mdp, size_t block);
+
+void free_blockfrag(struct mdesc *mdp, size_t block, int fraglog, void *addr);
+
 #endif  /* PMFUNCTION_H */
