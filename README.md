@@ -50,8 +50,15 @@ A portable persistent memory allocation library.
 
 ### How to Build it ?
 ```sh
-$ ./autogen.sh
-$ ./configure
+$ mkdir build
+$ cd build
+$ cmake ..
 $ make
 $ sudo make install
+```
+
+### How to package it ?
+```sh
+$ cd build
+$ cpack -C CPackConfig.cmake
 ```
