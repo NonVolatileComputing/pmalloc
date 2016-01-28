@@ -5,7 +5,7 @@
 #ifndef PMFUNCTION_H
 #define PMFUNCTION_H 1
 
-#include <config.h>
+#include "config.h"
 #include "pminternal.h"
 
 #define PMALLOC_DEVZERO		(1 << 0)

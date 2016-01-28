@@ -33,4 +33,8 @@ autom4te.cache
 tests/check_pmalloc
 tmp/
 *.log
-
+perf/struct_objs_read
+perf/struct_objs_write
+tests/check_pmclear
+tests/check_pmrecycle
+tests/check_pmsimulate
