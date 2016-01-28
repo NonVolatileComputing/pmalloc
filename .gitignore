@@ -9,7 +9,6 @@ target/
 *.bak
 libtool
 aclocal.m4
-config.h.in
 configure
 dist
 m4

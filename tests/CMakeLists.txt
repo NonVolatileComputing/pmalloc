@@ -1,7 +1,7 @@
 enable_testing()
 find_package(Check REQUIRED)
 include_directories(${CHECK_INCLUDE_DIRS})
-set(LIBS ${LIBS} ${CHECK_LIBRARIES} pmalloc ${LIBRT_LIBRARIES})
+set(LIBS ${LIBS} ${CHECK_LIBRARIES} pmalloc $<$<BOOL:${LIBRT_LIBRARIES}>:${LIBRT_LIBRARIES}>)
 include_directories(. ../src)
 
 add_executable(check_pmsimulate check_pmsimulate.c check_common.c)
