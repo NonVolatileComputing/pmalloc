@@ -68,7 +68,7 @@ struct mdesc {
 
 	int saved_errno;
 
-	void * (*morespace)(struct mdesc *, size_t);
+	void * (*morespace)(struct mdesc *, ptrdiff_t);
 
 	void (*abortfunc)(void *, void *, int);
 
@@ -104,7 +104,7 @@ extern void __pmalloc_free(struct mdesc *, void *);
 
 extern struct mdesc *__pmalloc_default_mdp;
 
-extern void * __pmalloc_map_morespace(struct mdesc *, size_t);
+extern void * __pmalloc_map_morespace(struct mdesc *, ptrdiff_t);
 
 extern void * __pmalloc_remap_mempool(struct mdesc *);
 

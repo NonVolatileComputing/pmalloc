@@ -11,7 +11,7 @@ static size_t pagesize = 0;
 #define PAGE_ALIGN(addr) \
 	(void *) (((long)(addr) + pagesize - 1) & ~(pagesize - 1))
 
-void * __pmalloc_map_morespace(struct mdesc *mdp, size_t size) {
+void * __pmalloc_map_morespace(struct mdesc *mdp, ptrdiff_t size) {
 	void * result = NULL;
 	off_t foffset;
 	size_t mapbytes;
