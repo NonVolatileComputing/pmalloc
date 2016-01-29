@@ -34,6 +34,7 @@
 #define ADDRESS(B) ((void *) (((B) - 1) * BLOCKSIZE + mdp -> mblkinfobase))
 
 #ifndef HAVE_MEMMOVE
+#  undef  memmove
 #  define memmove(dst,src,len) bcopy(src,dst,len)
 #endif
 
