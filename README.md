@@ -49,6 +49,7 @@ A portable persistent memory allocation library.
 ```
 
 ### How to Build it ?
+##### Please install the following check module first for unit test compiling.<br/> http://libcheck.github.io/check/web/install.html
 ```sh
 $ mkdir build
 $ cd build
