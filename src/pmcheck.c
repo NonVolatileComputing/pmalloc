@@ -42,7 +42,7 @@ void pmfree_check(void * md, void *ptr, void *desc) {
 
 void *pmalloc_check(void *md, size_t size, void *desc) {
 	struct hdr *hdr;
-	struct mdesc *mdp = (struct mdesc *) md;
+        /*	struct mdesc *mdp = (struct mdesc *) md; */
 	size_t nbytes;
 
 	nbytes = sizeof(struct hdr) + size + 1;

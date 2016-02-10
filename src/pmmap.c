@@ -13,7 +13,7 @@ static size_t pagesize = 0;
 
 void * __pmalloc_map_morespace(struct mdesc *mdp, ptrdiff_t size) {
 	void * result = NULL;
-	off_t foffset;
+        /*	off_t foffset; */
 	size_t mapbytes;
 	void *moveto;
 	void *mapto;

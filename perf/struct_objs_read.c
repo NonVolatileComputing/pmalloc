@@ -4,7 +4,7 @@
 
 int main(int argc, char *argv[])
 {
-	size_t emp_count = 0;
+  /*	size_t emp_count = 0; */
 
 	if (argc != 2) {
 		printf("Usage: %s filename", argv[0]);

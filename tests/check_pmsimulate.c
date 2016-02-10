@@ -18,7 +18,7 @@ Persistent Memory Library Tests
 
 int main()
 {
-    printf("Start checking test simulate %ld times in max block size %zx . \n", SIMULATE_COUNT, PM_MAX_ALLOCSIZE);
+    printf("Start checking test simulate %d times in max block size %lld . \n", SIMULATE_COUNT, PM_MAX_ALLOCSIZE);
     int fd = open("pmsimulate_ds.dat", O_CREAT|O_RDWR, S_IRUSR|S_IWUSR);
     if(fd < 0) {
         printf(ANSI_COLOR_RED "Open test data file failure." ANSI_COLOR_RESET);

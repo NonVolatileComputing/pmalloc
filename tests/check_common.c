@@ -113,7 +113,7 @@ void gen_pattern(long pattern[], size_t count, int mode)
     }
     printf(ANSI_COLOR_CYAN "Free Pattern: " ANSI_COLOR_RESET);
     for( idx = 0; idx < count; ++idx) printf("%ld,",pattern[idx]);
-    printf("\n", ANSI_COLOR_RESET);
+    printf("\n" ANSI_COLOR_RESET);
 }
 
 size_t refill_keydata(void *md, size_t sz) 

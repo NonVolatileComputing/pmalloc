@@ -14,6 +14,8 @@ Persistent Memory Library Example
 #include <mach/mach.h>
 #endif
 
+char **g_roles = NULL;
+
 unsigned int init_random(unsigned int seed)
 {
     unsigned int ret = seed;
@@ -118,7 +120,7 @@ void gen_pattern(long pattern[], size_t count, int mode)
     }
     printf(ANSI_COLOR_CYAN "Free Pattern: " ANSI_COLOR_RESET);
     for( idx = 0; idx < count; ++idx) printf("%ld,",pattern[idx]);
-    printf("\n", ANSI_COLOR_RESET);
+    printf("\n" ANSI_COLOR_RESET);
 }
 
 size_t refill_keydata(void *md, size_t sz)
@@ -200,7 +202,7 @@ size_t gen_employees(void *md, struct employee_t** pemp, int avail_deep) {
 
 	emp->name = (char*)p_addr(md, pmcalloc(md, sizeof(char), random_number(200, 1000)));
 	alloc_result(emp->name);
-	sprintf(e_addr(md, emp->name), "employee %d", random_number(0, 60000));
+	sprintf(e_addr(md, emp->name), "employee %zx", random_number(0, 60000));
 
 	emp->age = random_number(24, 90);
 
@@ -223,7 +225,7 @@ size_t gen_employees(void *md, struct employee_t** pemp, int avail_deep) {
 	}
 
 	fprintf(stderr, "Generating %s, age: %d, role: %s, the number of members: %d \n",
-			e_addr(md, emp->name), emp->age, e_addr(md, emp->role), emp->mcount);
+                (char *)e_addr(md, emp->name), emp->age, (char *)e_addr(md, emp->role), emp->mcount);
 
 	++ret;
 
@@ -238,7 +240,7 @@ void print_employees(void *md, struct employee_t* emp, int deep) {
 		printf("--");
 	}
 	printf("%s, age: %d, role: %s, the number of members: %d \n",
-			e_addr(md, e_emp->name), e_emp->age, e_addr(md, e_emp->role), e_emp->mcount);
+               (char *)e_addr(md, e_emp->name), e_emp->age, (char *)e_addr(md, e_emp->role), e_emp->mcount);
 	if (g_roles[0] == e_emp->role) { // manager
 		int i;
 		struct employee_t ** members = e_addr(md, e_emp->members);

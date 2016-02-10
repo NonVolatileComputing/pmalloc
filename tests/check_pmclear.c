@@ -14,7 +14,7 @@ Persistent Memory Library Tests
 
 int main()
 {
-    printf("Start checking test in block size %zx . \n", PM_MAX_ALLOCSIZE);
+    printf("Start checking test in block size %lld . \n", PM_MAX_ALLOCSIZE);
     int fd = open("pmclear_ds.dat", O_CREAT|O_RDWR, S_IRUSR|S_IWUSR);
     if(fd < 0) {
         printf(ANSI_COLOR_RED "Open test data file failure." ANSI_COLOR_RESET);

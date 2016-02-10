@@ -50,7 +50,7 @@ typedef struct employee_t {
 	int mcount;
 } employee_t;
 
-static char **g_roles = NULL;
+extern char **g_roles;
 
 void init_roles(void *md);
 

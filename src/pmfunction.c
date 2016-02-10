@@ -280,7 +280,7 @@ void free_blocks(struct mdesc *mdp, size_t block)
 {
     size_t blocks;
     register size_t i;
-    struct list *prev, *next;
+    /*    struct list *prev, *next; */
 
     mdp -> mblkstats.chunks_used--;
     mdp -> mblkstats.bytes_used -=
@@ -356,7 +356,7 @@ void free_blocks(struct mdesc *mdp, size_t block)
 
 void free_blockfrag(struct mdesc *mdp, size_t block, int fraglog, void *addr)
 {
-    size_t blocks;
+    /* size_t blocks; */
     register size_t i;
     struct list *prev, *next;
 

@@ -10,7 +10,7 @@ include_directories(${PROJECT_BINARY_DIR})
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMakeModules/")
 set(pmalloc_VERSION_MAJOR 1)
 set(pmalloc_VERSION_MINOR 8)
-set(CMAKE_BUILD_TYPE "Relase")
+set(CMAKE_BUILD_TYPE "Release")
 set(CMAKE_C_FLAGS_DEBUG "$ENV{CFLAGS} -O0 -Wall -g -ggdb")
 set(CMAKE_C_FLAGS_RELEASE "$ENV{CFLAGS} -O3 -Wall")
 
