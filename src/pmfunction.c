@@ -431,6 +431,15 @@ void *pmopen(const char *fn, void *baseaddr, size_t initial_size)
 	return ret;
 }
 
+long pmcapacity(void* md)
+{
+	struct mdesc *mdp = (struct mdesc *) md;
+	if (NULL == mdp->limitpos || NULL == mdp->mempoolbase ||
+	    mdp->limitpos <=  mdp->mempoolbase) {
+		return 0L;
+	}
+	return mdp->limitpos - mdp->mempoolbase;
+}
 
 void pmclose(void* md)
 {

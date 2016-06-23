@@ -23,6 +23,8 @@ extern void *pmopen(const char *fn, void *baseaddr, size_t initial_size);
 
 extern void pmclose(void* md);
 
+extern long pmcapacity(void* md);
+
 extern void * pmalloc(void *, size_t);
 
 extern void * pmalloc_check(void *, size_t, void *);
