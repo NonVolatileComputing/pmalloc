@@ -4,6 +4,10 @@ include_directories(${CHECK_INCLUDE_DIRS})
 set(LIBS ${LIBS} ${CHECK_LIBRARIES} pmalloc $<$<BOOL:${LIBRT_LIBRARIES}>:${LIBRT_LIBRARIES}>)
 include_directories(. ../src)
 
+if( APPLE )
+  link_directories( "/opt/local/lib" )
+endif( APPLE )
+
 add_executable(check_pmsimulate check_pmsimulate.c check_common.c)
 target_link_libraries(check_pmsimulate ${LIBS})
 add_test(check_pmsimulate ${CMAKE_CURRENT_BINARY_DIR}/check_pmsimulate)

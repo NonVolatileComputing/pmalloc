@@ -13,6 +13,7 @@ set(pmalloc_VERSION_MINOR 8)
 set(CMAKE_BUILD_TYPE "Release")
 set(CMAKE_C_FLAGS_DEBUG "$ENV{CFLAGS} -O0 -Wall -g -ggdb")
 set(CMAKE_C_FLAGS_RELEASE "$ENV{CFLAGS} -O3 -Wall")
+set(CMAKE_MACOSX_RPATH 1)
 
 find_library(LIBRT_LIBRARIES rt)
 
