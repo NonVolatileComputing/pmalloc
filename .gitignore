@@ -38,3 +38,5 @@ tests/check_pmclear
 tests/check_pmrecycle
 tests/check_pmsimulate
 build/
+.*
+
