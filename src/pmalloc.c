@@ -25,7 +25,7 @@ void * pmalloc(void *md, size_t size) {
 		size = sizeof(struct list);
 	}
 
-	if (size <= BLOCKSIZE / 2) {
+	if ( 0 ) { // (BLOCKSIZE / 2) {
 		result = allocate_blockfrag(mdp, size);
 	} else {
 		size_t blocks = BLOCKIFY(size);

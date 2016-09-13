@@ -175,31 +175,29 @@ void *allocate_blockfrag(struct mdesc *mdp, size_t size)
     else
     {
         result = allocate_blocks (mdp, 1);
-        if (result == NULL)
+        if (result != NULL)
         {
-            return (NULL);
-        }
-
-        for (i = 1; i < (size_t) (BLOCKSIZE >> log); ++i)
-        {
-            next = (struct list *) ((char *) result + (i << log));
-            next -> next = mdp -> fragblockhead[log].next;
-            next -> prev = &mdp -> fragblockhead[log];
-            next -> prev -> next = next;
-            if (next -> next != NULL)
+            for (i = 1; i < (size_t) (BLOCKSIZE >> log); ++i)
             {
-                next -> next -> prev = next;
+                next = (struct list *) ((char *) result + (i << log));
+                next -> next = mdp -> fragblockhead[log].next;
+                next -> prev = &mdp -> fragblockhead[log];
+                next -> prev -> next = next;
+                if (next -> next != NULL)
+                {
+                    next -> next -> prev = next;
+                }
             }
+
+            block = BLOCK (result);
+            mdp -> mblkinfo[block].inuse.fragtype = log;
+            mdp -> mblkinfo[block].inuse.info.frag.nfreefrags = i - 1;
+            mdp -> mblkinfo[block].inuse.info.frag.firstfragidxinlist = i - 1;
+
+            mdp -> mblkstats.chunks_free += (BLOCKSIZE >> log) - 1;
+            mdp -> mblkstats.bytes_free += BLOCKSIZE - (1 << log);
+            mdp -> mblkstats.bytes_used -= BLOCKSIZE - (1 << log);
         }
-
-        block = BLOCK (result);
-        mdp -> mblkinfo[block].inuse.fragtype = log;
-        mdp -> mblkinfo[block].inuse.info.frag.nfreefrags = i - 1;
-        mdp -> mblkinfo[block].inuse.info.frag.firstfragidxinlist = i - 1;
-
-        mdp -> mblkstats.chunks_free += (BLOCKSIZE >> log) - 1;
-        mdp -> mblkstats.bytes_free += BLOCKSIZE - (1 << log);
-        mdp -> mblkstats.bytes_used -= BLOCKSIZE - (1 << log);
     }
 
     return result;
@@ -209,7 +207,6 @@ void *allocate_blocks(struct mdesc *mdp, size_t blocks)
 {
     void * result = NULL;
     size_t block, lastblocks, start;
-
     start = block = MALLOC_SEARCH_START;
     while (mdp -> mblkinfo[block].free.size < blocks)
     {
@@ -232,15 +229,14 @@ void *allocate_blocks(struct mdesc *mdp, size_t blocks)
                 continue;
             }
             result = morespace(mdp, blocks * BLOCKSIZE);
-            if (result == NULL)
+            if (result != NULL)
             {
-                return (NULL);
+                block = BLOCK (result);
+                mdp -> mblkinfo[block].inuse.fragtype = 0;
+                mdp -> mblkinfo[block].inuse.info.sizeinblock = blocks;
+                mdp -> mblkstats.chunks_used++;
+                mdp -> mblkstats.bytes_used += blocks * BLOCKSIZE;
             }
-            block = BLOCK (result);
-            mdp -> mblkinfo[block].inuse.fragtype = 0;
-            mdp -> mblkinfo[block].inuse.info.sizeinblock = blocks;
-            mdp -> mblkstats.chunks_used++;
-            mdp -> mblkstats.bytes_used += blocks * BLOCKSIZE;
             return (result);
         }
     }
@@ -272,7 +268,6 @@ void *allocate_blocks(struct mdesc *mdp, size_t blocks)
     mdp -> mblkstats.chunks_used++;
     mdp -> mblkstats.bytes_used += blocks * BLOCKSIZE;
     mdp -> mblkstats.bytes_free -= blocks * BLOCKSIZE;
-
     return result;
 }
 
@@ -281,7 +276,6 @@ void free_blocks(struct mdesc *mdp, size_t block)
     size_t blocks;
     register size_t i;
     /*    struct list *prev, *next; */
-
     mdp -> mblkstats.chunks_used--;
     mdp -> mblkstats.bytes_used -=
         mdp -> mblkinfo[block].inuse.info.sizeinblock * BLOCKSIZE;
@@ -351,7 +345,6 @@ void free_blocks(struct mdesc *mdp, size_t block)
     }
 
     mdp -> mblkinfosearchindex = block;
-
 }
 
 void free_blockfrag(struct mdesc *mdp, size_t block, int fraglog, void *addr)
@@ -445,6 +438,6 @@ void pmclose(void* md)
 {
 	struct mdesc *mdp = (struct mdesc *)md;
 	assert(NULL != mdp);
-	pmalloc_detach(md);
+	/* pmalloc_detach(md); */
 	close(mdp->mappingfd);
 }
