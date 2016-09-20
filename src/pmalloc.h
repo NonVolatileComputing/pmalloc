@@ -61,6 +61,8 @@ extern int pmalloc_errno(void *);
 
 extern int pmtrace(void);
 
+extern int pmsync(void *, void *, size_t);
+
 extern void * p_addr(void *, void *);
 
 extern void * e_addr(void *, void *);
