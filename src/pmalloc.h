@@ -17,6 +17,8 @@
 #include <limits.h>
 #include <unistd.h>
 
+#define PMALLOC_MIN_POOL_SIZE ((size_t)(1024 * 1024 * 16)) /* min pool size: 16MB */
+
 #define PMALLOC_KEYS		255
 
 extern void *pmopen(const char *fn, void *baseaddr, size_t initial_size);
