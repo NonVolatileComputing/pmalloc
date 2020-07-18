@@ -38,7 +38,8 @@ void * __pmalloc_map_morespace(struct mdesc *mdp, ptrdiff_t size) {
 
 				if (!(mdp->flags & (PMALLOC_DEVZERO | PMALLOC_ANON))) {
 					lseek(mdp->mappingfd, mapbytes - 1, SEEK_SET);
-					write(mdp->mappingfd, &buf, 1);
+					if (write(mdp->mappingfd, &buf, 1) != 1)
+						return NULL;
 				}
 				mapto = mmap(NULL, mapbytes, PROT_READ | PROT_WRITE,
 				MAP_SHARED, mdp->mappingfd, 0);
@@ -67,4 +68,3 @@ void * __pmalloc_remap_mempool(struct mdesc *mdp) {
 	}
 	return base;
 }
-
